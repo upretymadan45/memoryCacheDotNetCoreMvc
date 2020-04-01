@@ -1,0 +1,25 @@
+@model Employee
+
+<h2>Add new employee</h2>
+
+<form asp-action="New" method="Post">
+    <input type="hidden" asp-for="Id"/>
+
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input type="text" class="form-control" asp-for="FullName"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Age"></label>
+        <input type="text" class="form-control" asp-for="Age"/>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Dob"></label>
+        <input type="date" class="form-control" asp-for="Dob"/>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Save"/>
+
+</form>

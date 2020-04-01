@@ -1,0 +1,62 @@
+﻿@model List<Employee>
+
+@if(Model.Count==0){
+    <h3>No employee(s) found!</h3>
+}else{
+    <div class="row">
+        <div class="col-6">
+            <h4>Total Employees = @ViewBag.TotalRows</h4>
+        </div>
+        <div class="col-6">
+            <h4>Time to load data = @ViewBag.TimeToLoadData</h4>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-startPage="0">First</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-startPage="@(ViewBag.NextPage)">Next</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-startPage="@(ViewBag.PreviousPage)">Previous</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-startPage="@(ViewBag.TotalRows/20)">Last</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <table class="table table-bordered table-condensed" id="dataTable">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Full Name</td>
+                <td>Age</td>
+                <td>Date of Birth</td>
+                <td colspan="2">Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.Id</td>
+                    <td>@e.FullName</td>
+                    <td>@e.Age</td>
+                    <td>@e.Dob</td>
+                    <td>
+                        <a asp-action="Edit" 
+                            asp-route-id="@e.Id" 
+                            asp-route-currentPage="@(ViewBag.NextPage-1)"
+                            class="btn btn-success">Edit</a>
+
+                        <a asp-action="Delete" 
+                            asp-route-id="@e.Id" 
+                            asp-route-currentPage="@(ViewBag.NextPage-1)"
+                            class="btn btn-danger" 
+                            onclick="return confirm('Are you sure to remove this record?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
